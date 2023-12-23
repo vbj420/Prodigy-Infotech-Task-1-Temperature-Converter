@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prodigy-Infotech Task 1</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-image: url('C:/Users/Dell/Desktop/Prodigy/task1/static/image.jpg'); /* Replace with your image path */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        #converter-container {
+            background-color: rgba(245, 245, 245, 0.6);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 80%;
+            max-width: 400px;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            font-family: 'Helvetica', sans-serif; /* Change to your preferred font-family */
+            font-size: 24px; /* Adjust the font size as needed */
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            color: #555;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px; /* Adjust the font size as needed */
+        }
+
+        button {
+            background-color: #3498db; /* Blue background */
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.9s, color 0.9s; /* Adjusted transition duration */
+        }
+
+        button:hover {
+            background-color: #4caf50; /* Green background on hover */
+            color: #fff;
+        }
+
+        #result-container {
+            display: none;
+            margin-top: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        #result-container p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="converter-container">
+        <h2>Temperature Converter</h2>
+        <label for="temperature">Temperature:</label>
+        <input type="number" id="temperature" placeholder="Enter temperature" required>
+
+        <label for="unit">Unit:</label>
+        <select id="unit">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+            <option value="rankine">Rankine</option>
+        </select>
+
+        <button onclick="convertTemperature()">Convert</button>
+
+        <div id="result-container">
+            <p id="result-celsius"></p>
+            <p id="result-fahrenheit"></p>
+            <p id="result-kelvin"></p>
+            <p id="result-rankine"></p>
+        </div>
+    </div>
+
+    <script>
+        function convertTemperature() {
+            var inputTemperature = parseFloat(document.getElementById('temperature').value);
+            var inputUnit = document.getElementById('unit').value;
+
+            var celsius, fahrenheit, kelvin, rankine;
+
+            switch (inputUnit) {
+                case 'celsius':
+                    celsius = inputTemperature;
+                    fahrenheit = (celsius * 9/5) + 32;
+                    kelvin = celsius + 273.15;
+                    rankine = (celsius + 273.15) * 9/5;
+                    break;
+                case 'fahrenheit':
+                    fahrenheit = inputTemperature;
+                    celsius = (fahrenheit - 32) * 5/9;
+                    kelvin = (fahrenheit - 32) * 5/9 + 273.15;
+                    rankine = fahrenheit + 459.67;
+                    break;
+                case 'kelvin':
+                    kelvin = inputTemperature;
+                    celsius = kelvin - 273.15;
+                    fahrenheit = (kelvin - 273.15) * 9/5 + 32;
+                    rankine = kelvin * 9/5;
+                    break;
+                case 'rankine':
+                    rankine = inputTemperature;
+                    kelvin = rankine * 5/9;
+                    celsius = kelvin - 273.15;
+                    fahrenheit = rankine - 459.67;
+                    break;
+                default:
+                    break;
+            }
+
+            document.getElementById('result-celsius').innerText = `Celsius: ${celsius.toFixed(2)} °C`;
+            document.getElementById('result-fahrenheit').innerText = `Fahrenheit: ${fahrenheit.toFixed(2)} °F`;
+            document.getElementById('result-kelvin').innerText = `Kelvin: ${kelvin.toFixed(2)} K`;
+            document.getElementById('result-rankine').innerText = `Rankine: ${rankine.toFixed(2)} °R`;
+
+            document.getElementById('result-container').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
